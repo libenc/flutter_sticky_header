@@ -293,7 +293,13 @@ class RenderSliverStickyHeader extends RenderSliver with RenderSliverHelpers {
             headerParentData!.paintOffset = Offset(0.0, geometry!.paintExtent + headerOffset);
           break;
         case AxisDirection.down:
-          headerParentData?.paintOffset = Offset(0.0, headerPosition);
+          if (_reverse) {
+            final double y =
+                (constraints.remainingPaintExtent > _headerExtent! ? (geometry!.paintExtent - _headerExtent!) : 0);
+            headerParentData?.paintOffset = Offset(0.0, y);
+          } else {
+            headerParentData?.paintOffset = Offset(0.0, headerPosition);
+          }
           break;
         case AxisDirection.left:
           headerParentData!.paintOffset = Offset(geometry!.paintExtent - headerPosition - _headerExtent!, 0.0);
